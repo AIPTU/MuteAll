@@ -1,0 +1,19 @@
+---
+name: MuteAll
+main: aiptu\muteall\MuteAll
+src-namespace-prefix: aiptu\muteall
+version: 1.0.0
+api: [4.0.0]
+author: AIPTU
+commands:
+  muteall:
+    description: Mute all players on the server.
+    permission: muteall.command
+permissions:
+  muteall.command:
+    description: /muteall command.
+    default: op
+  muteall.bypass:
+    description: Allows user to bypass mute.
+    default: op
+...

@@ -1,0 +1,8 @@
+---
+# Do not change this (Only for internal use)!
+config-version: 1
+
+# Messages are used when muting player chats.
+# Use "§" or "&" to color the message.
+message: "&cYou can't chat when global mute is enabled"
+...
