@@ -23,6 +23,21 @@ message: "&cYou can't chat when global mute is enabled"
 
 ```
 
+# For Developers
+
+We provide API for developers to write addons/plugins that depends with MuteAll.
+To access MuteAll API class, you can use `aiptu\muteall\MuteAll::getInstance()`.
+
+```php
+- Check whether global mute is enabled or not:
+
+MuteAll::getInstance()->isMuteAll();
+
+- Set global mute to turn on or off:
+
+MuteAll::getInstance()->setMuteAll(bool $value);
+```
+
 # Upcoming Features
 
 - Currently none planned. You can contribute or suggest for new features.
