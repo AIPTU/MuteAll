@@ -1,6 +1,8 @@
 # MuteAll
 
-[![Discord](https://img.shields.io/discord/830063409000087612?color=7389D8&label=discord)](https://discord.com/invite/EggNF9hvGv)
+[![](https://img.shields.io/discord/830063409000087612?color=7389D8&label=discord)](https://discord.com/invite/EggNF9hvGv)
+[![](https://poggit.pmmp.io/shield.state/MuteAll)](https://poggit.pmmp.io/p/MuteAll)
+[![](https://poggit.pmmp.io/shield.dl.total/MuteAll)](https://poggit.pmmp.io/p/MuteAll)
 
 A PocketMine-MP plugin to mute all players on the server.
 
@@ -8,17 +10,27 @@ A PocketMine-MP plugin to mute all players on the server.
 
 - Permission bypass.
 - Supports `&` as formatting codes.
+- Custom messages.
 - Lightweight and open source ❤️
 
 # Default Config
 ```yaml
 ---
+---
 # Do not change this (Only for internal use)!
 config-version: 1.0
+
+# Do not change this (Unless you know what you're doing)!
+global-mute: false
 
 # Messages are used when muting player chats.
 # Use "§" or "&" to color the message.
 message: "&cYou can't chat when global mute is enabled"
+
+# Turn on mute
+turn-on: "&aTurn on mute chat for all players"
+# Turn off mute
+turn-off: "&aTurn on mute chat for all players"
 ...
 
 ```
@@ -45,5 +57,5 @@ MuteAll::getInstance()->setMuteAll(bool $value);
 # Additional Notes
 
 - If you find bugs or want to give suggestions, please visit [here](https://github.com/AIPTU/MuteAll/issues).
-- We accept any contributions! If you want to contribute please make a pull request in [here](https://github.com/AIPTU/MuteAll/pulls).
+- We accept all contributions! If you want to contribute, please make a pull request in [here](https://github.com/AIPTU/MuteAll/pulls).
 - Icons made from [www.flaticon.com](https://www.flaticon.com)
