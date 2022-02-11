@@ -2,7 +2,15 @@
 # Do not change this (Only for internal use)!
 config-version: 1.0
 
+# Do not change this (Unless you know what you're doing)!
+global-mute: false
+
 # Messages are used when muting player chats.
 # Use "§" or "&" to color the message.
 message: "&cYou can't chat when global mute is enabled"
+
+# Turn on mute
+turn-on: "&aTurn on mute chat for all players"
+# Turn off mute
+turn-off: "&aTurn on mute chat for all players"
 ...

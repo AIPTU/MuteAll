@@ -30,58 +30,34 @@ namespace aiptu\muteall;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\plugin\PluginBase;
-use pocketmine\utils\TextFormat;
+use pocketmine\utils\SingletonTrait;
 use function rename;
 
-final class MuteAll extends PluginBase implements Listener
+final class MuteAll extends PluginBase
 {
+	use SingletonTrait;
+
 	private const CONFIG_VERSION = 1.0;
-
-	private static MuteAll $instance;
-
-	private ConfigProperty $configProperty;
-
-	private bool $mute = false;
-
-	public static function getInstance(): MuteAll
-	{
-		return self::$instance;
-	}
 
 	public function onEnable(): void
 	{
-		self::$instance = $this;
-
-		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		self::setInstance($this);
 
 		$this->checkConfig();
+
+		$this->getServer()->getPluginManager()->registerEvents(new EventHandler(), $this);
 	}
 
 	public function isMuteAll(): bool
 	{
-		return $this->mute;
+		return (bool) $this->getConfig()->get('global-mute', false);
 	}
 
 	public function setMuteAll(bool $value): void
 	{
-		$this->mute = $value;
-	}
-
-	public function onPlayerChat(PlayerChatEvent $event): void
-	{
-		if ($event->isCancelled()) {
-			return;
-		}
-
-		$player = $event->getPlayer();
-
-		if ($this->isMuteAll() && !$player->hasPermission('muteall.bypass')) {
-			$player->sendMessage(TextFormat::colorize($this->getConfigProperty()->getPropertyString('message', "&cYou can't chat when global mute is enabled")));
-			$event->cancel();
-		}
+		$this->getConfig()->set('global-mute', $value);
+		$this->getConfig()->save();
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
@@ -91,13 +67,9 @@ final class MuteAll extends PluginBase implements Listener
 		} else {
 			$this->setMuteAll(true);
 		}
-		$sender->sendMessage(TextFormat::GREEN . 'Turn ' . ($this->isMuteAll() ? 'on' : 'off') . ' mute chat for all players');
+		$config = $this->getConfig();
+		$sender->sendMessage($this->isMuteAll() ? $config->get('turn-on', '&aTurn on mute chat for all players') : $config->get('turn-off', '&aTurn off mute chat for all players'));
 		return true;
-	}
-
-	public function getConfigProperty(): ConfigProperty
-	{
-		return $this->configProperty;
 	}
 
 	private function checkConfig(): void
@@ -105,14 +77,12 @@ final class MuteAll extends PluginBase implements Listener
 		$this->saveDefaultConfig();
 
 		if (!$this->getConfig()->exists('config-version') || ($this->getConfig()->get('config-version', self::CONFIG_VERSION) !== self::CONFIG_VERSION)) {
-			$this->getLogger()->notice('Your configuration file is outdated, updating the config.yml...');
-			$this->getLogger()->notice('The old configuration file can be found at config.old.yml');
-
-			rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config.old.yml');
-
+			$this->getLogger()->warning('An outdated config was provided attempting to generate a new one...');
+			if (!rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config.old.yml')) {
+				$this->getLogger()->critical('An unknown error occurred while attempting to generate the new config');
+				$this->getServer()->getPluginManager()->disablePlugin($this);
+			}
 			$this->reloadConfig();
 		}
-
-		$this->configProperty = new ConfigProperty($this->getConfig());
 	}
 }
