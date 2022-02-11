@@ -32,6 +32,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\SingletonTrait;
+use pocketmine\utils\TextFormat;
 use function rename;
 
 final class MuteAll extends PluginBase
@@ -39,6 +40,8 @@ final class MuteAll extends PluginBase
 	use SingletonTrait;
 
 	private const CONFIG_VERSION = 1.0;
+
+	private bool $muteAll = false;
 
 	public function onEnable(): void
 	{
@@ -51,13 +54,12 @@ final class MuteAll extends PluginBase
 
 	public function isMuteAll(): bool
 	{
-		return (bool) $this->getConfig()->get('global-mute', false);
+		return $this->muteAll;
 	}
 
 	public function setMuteAll(bool $value): void
 	{
-		$this->getConfig()->set('global-mute', $value);
-		$this->getConfig()->save();
+		$this->muteAll = $value;
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
@@ -68,7 +70,7 @@ final class MuteAll extends PluginBase
 			$this->setMuteAll(true);
 		}
 		$config = $this->getConfig();
-		$sender->sendMessage($this->isMuteAll() ? $config->get('turn-on', '&aTurn on mute chat for all players') : $config->get('turn-off', '&aTurn off mute chat for all players'));
+		$sender->sendMessage(TextFormat::colorize($this->isMuteAll() ? $config->get('turn-on', '&aTurn on mute chat for all players') : $config->get('turn-off', '&aTurn off mute chat for all players')));
 		return true;
 	}
 
