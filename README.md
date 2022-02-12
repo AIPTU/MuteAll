@@ -17,10 +17,7 @@ A PocketMine-MP plugin to mute all players on the server.
 ---
 ---
 # Do not change this (Only for internal use)!
-config-version: 1.0
-
-# Do not change this (Unless you know what you're doing)!
-global-mute: false
+config-version: 1.1
 
 # Messages are used when muting player chats.
 # Use "§" or "&" to color the message.
