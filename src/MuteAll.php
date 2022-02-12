@@ -39,7 +39,7 @@ final class MuteAll extends PluginBase
 {
 	use SingletonTrait;
 
-	private const CONFIG_VERSION = 1.0;
+	private const CONFIG_VERSION = 1.1;
 
 	private bool $muteAll = false;
 
