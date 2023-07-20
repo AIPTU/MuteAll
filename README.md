@@ -7,43 +7,31 @@ A PocketMine-MP plugin to mute all players on the server.
 
 # Features
 
-- Permission bypass.
-- Supports `&` as formatting codes.
-- Custom messages.
-- Lightweight and open source ❤️
+- `Global Chat Mute`: Enable a global chat mute for all players on the server, preventing them from sending chat messages.
+- `Bypass Permission`: Allow players with the `muteall.bypass` permission to chat even during global mute.
+- `Customizable Messages`: Personalize messages displayed to players when they attempt to chat during global mute and when the mute is turned on or off.
+- `Color Formatting`: The messages can be colored using "§" or "&" color codes, providing visual appeal and customization options for the messages.
+- `Config Version Management`: The plugin ensures that the configuration file is up-to-date. If an outdated config file is provided, it generates a new one and backs up the old config, preventing compatibility issues.
+- `User-friendly Command`: Use the simple `/muteall` command to toggle the global chat mute on or off easily.
 
 # Default Config
 ```yaml
----
----
 # Do not change this (Only for internal use)!
 config-version: 1.1
 
-# Messages are used when muting player chats.
-# Use "§" or "&" to color the message.
+# Messages Configuration
+# These messages are used when muting player chats.
+# You can use "§" or "&" to color the messages.
+
+# The message displayed to players when they attempt to chat during global mute.
 message: "&cYou can't chat when global mute is enabled"
 
-# Turn on mute
-turn-on: "&aTurn on mute chat for all players"
-# Turn off mute
-turn-off: "&aTurn on mute chat for all players"
-...
+# The message displayed to players when the global mute is turned on.
+turn-on: "&aMute chat for all players has been turned on"
 
-```
+# The message displayed to players when the global mute is turned off.
+turn-off: "&aMute chat for all players has been turned off"
 
-# For Developers
-
-We provide API for developers to write addons/plugins that depends with MuteAll.
-To access MuteAll API class, you can use `aiptu\muteall\MuteAll::getInstance()`.
-
-```php
-- Check whether global mute is enabled or not:
-
-MuteAll::getInstance()->isMuteAll();
-
-- Set global mute to turn on or off:
-
-MuteAll::getInstance()->setMuteAll(bool $value);
 ```
 
 # Upcoming Features
