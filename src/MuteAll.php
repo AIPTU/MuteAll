@@ -25,7 +25,7 @@ use Symfony\Component\Filesystem\Path;
 use function is_string;
 
 class MuteAll extends PluginBase implements Listener {
-	private const CONFIG_VERSION = 1.1;
+	private const CONFIG_VERSION = 1.2;
 
 	private bool $muteAll = false;
 
